@@ -1,15 +1,33 @@
 import React from 'react';
-import TopicList from './TopicList';
+import { useNavigate } from 'react-router-dom';
 
-const topics = ['Weather', 'Travel', 'Food', 'Hobbies', 'Work'];
+const topics = [
+  'Travel',
+  'Sports',
+  'Food',
+  'Technology',
+  'Movies',
+];
 
-const TopicPage = ({ onTopicSelect }) => {
+function TopicPage() {
+  const navigate = useNavigate();
+
+  const handleTopicSelect = (topic) => {
+    navigate('/conversation', { state: { selectedTopic: topic } });
+  };
+
   return (
     <div>
       <h1>English Speaking Practice</h1>
-      <TopicList topics={topics} onSelect={onTopicSelect} />
+      <ul>
+        {topics.map((topic, index) => (
+          <li key={index} onClick={() => handleTopicSelect(topic)}>
+            {topic}
+          </li>
+        ))}
+      </ul>
     </div>
   );
-};
+}
 
 export default TopicPage;

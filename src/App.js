@@ -1,32 +1,17 @@
-import React, { useState } from 'react';
-import TopicList from './TopicList';
-import Conversation from './Conversation';
-
-const topics = ['Weather', 'Travel', 'Food', 'Hobbies', 'Work'];
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import TopicPage from './TopicPage';
+import ConversationPage from './ConversationPage';
 
 function App() {
-  const [selectedTopic, setSelectedTopic] = useState(null);
-  const [summary, setSummary] = useState(null);
-
-  const handleTopicSelect = (topic) => {
-    setSelectedTopic(topic);
-  };
-
-  const handleConversationFinish = (summary) => {
-    setSummary(summary);
-  };
-
   return (
-    <div className="App">
-      <h1>English Speaking Practice</h1>
-      {!selectedTopic && <TopicList topics={topics} onSelect={handleTopicSelect} />}
-      {selectedTopic && !summary && (
-        <Conversation topic={selectedTopic} onFinish={handleConversationFinish} />
-      )}
-      {summary && <p>{summary}</p>}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<TopicPage />} />
+        <Route path="conversation" element={<ConversationPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
-
